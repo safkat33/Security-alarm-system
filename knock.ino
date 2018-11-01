@@ -34,7 +34,7 @@ void setup() {
 }
 
 void loop() {
-  // Listen for any knock at all.
+	
   int i;
   for(i=0; i<maximumKnocks; i++){
     secretCode[i] = EEPROM.read(i);
@@ -54,12 +54,11 @@ void loop() {
   }
 } 
 
-// Records the timing of knocks.
 void listenToSecretKnock(){
   Serial.println("knock starting");   
 
   int i = 0;
-  // First lets reset the listening array.
+ 
   for (i=0;i<maximumKnocks;i++){
     knockReadings[i]=0;
   }
@@ -78,7 +77,7 @@ void listenToSecretKnock(){
      digitalWrite(redLED, HIGH);                        
   }
   do {
-    //listen for the next knock or wait for it to timeout. 
+    
     knockSensorValue = analogRead(knockSensor);
     if (knockSensorValue >=threshold){                
 
@@ -139,7 +138,7 @@ void triggerDoorUnlock(){
   Serial.println("Door unlocked!");
   int i=0;
   
-  // turn the motor on for a bit.
+
   digitalWrite(lockMotor, HIGH);
   digitalWrite(greenLED, HIGH);            
   
@@ -178,7 +177,7 @@ boolean validateKnock(){
   }
   
   if (programButtonPressed==true){
-      for (i=0;i<maximumKnocks;i++){ // normalize the times
+      for (i=0;i<maximumKnocks;i++){ 
         secretCode[i]= map(knockReadings[i],0, maxKnockInterval, 0, 100);
         EEPROM.write(i,secretCode[i]); 
       }
